@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'upload',
@@ -7,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent {
+  @Output() uploaded = new EventEmitter();
 
   fileData: File = null;
   previewUrl:any = null;
@@ -15,12 +17,13 @@ export class UploadComponent {
   constructor(private http: HttpClient) { }
 
   changed(fileInput) {
-    console.log(fileInput);
     this.fileData = <File>fileInput.target.files[0];
     const formData = new FormData();
       formData.append('file', this.fileData);
       this.http.post('/api/Upload', formData)
-        .subscribe();
+        .subscribe(res => {
+          this.uploaded.emit("");
+        });
   }
 
 }

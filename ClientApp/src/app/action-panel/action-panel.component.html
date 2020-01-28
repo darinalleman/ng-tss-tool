@@ -1,0 +1,8 @@
+<div class="row">
+    <upload
+        (uploaded)="fileUploadListener()"
+        class="col-md-4"></upload>
+    <estimate 
+        *ngIf="fileUploaded" 
+        class="col-md-4"></estimate>
+</div>

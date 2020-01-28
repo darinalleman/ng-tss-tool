@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgControl } from '@angular/forms';
-import { Zone } from '../models';
+import { Zone } from '../../models';
 
 @Component({
   selector: 'estimate',
