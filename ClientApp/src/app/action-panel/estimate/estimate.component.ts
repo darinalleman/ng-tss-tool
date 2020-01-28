@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, NgControl } from '@angular/forms';
 import { Zone } from '../../models';
 
@@ -9,6 +9,7 @@ import { Zone } from '../../models';
   styleUrls: ['./estimate.component.scss']
 })
 export class EstimateComponent implements OnInit {
+  @Input() fileUploaded: boolean = false;
   private zones: Zone[] = [];
   private tss: number;
   constructor(private _http: HttpClient

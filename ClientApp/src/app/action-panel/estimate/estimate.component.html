@@ -1,17 +1,19 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
-      <h3 class="panel-title">Estimate TSS from your heart rate!</h3>
+      <h3 class="panel-title">Estimate TSS from your heart rate</h3>
   </div>
   <div class="panel-body">
-      <p>Enter the highest BPM in each of your zones.</p>
-      <p>For example, my zone 3 ends at 160bpm. Zone 3 = 160bpm and Zone 5 = my max heart rate.</p>
-      <div>
+      <p>Enter the highest BPM in each of your zones. <br><small>For example, my zone 3 ends at 160bpm. Zone 3 = 160bpm and Zone 5 = my max heart rate.</small></p>
+     
+      <div [ngClass]="{'disable-all': !fileUploaded}">
           <div class="input-group" *ngFor="let zone of zones;">
-              {{zone.name}} <input [(ngModel)]="zone.bpm" type="number"/>
+              {{zone.name}} <input [(ngModel)]="zone.bpm" type="number" class="input-spacing"/>
               <span class="input-group-addon" id="basic-addon1"> bpm</span>
           </div>
-          <input type="submit" class="center-block btn btn-primary" value="Estimate!" (click)="submit()"/>
+          <br>
+          <input type="submit" class="btn btn-primary" value="Estimate!" (click)="submit()"/>
       </div>
+      <br/>
       <p *ngIf="tss">Your estimated TSS is {{tss}}</p>
     </div>
 </div>

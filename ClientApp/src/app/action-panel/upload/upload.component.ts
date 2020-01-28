@@ -18,6 +18,7 @@ export class UploadComponent {
 
   changed(fileInput) {
     this.fileData = <File>fileInput.target.files[0];
+    this.uploaded.emit("");//for testing
     const formData = new FormData();
       formData.append('file', this.fileData);
       this.http.post('/api/Upload', formData)

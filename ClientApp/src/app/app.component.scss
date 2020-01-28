@@ -1,0 +1,9 @@
+.disable-all {
+    pointer-events: none;
+    opacity: 0.4;
+    //use this in conjunction with 'readonly' on textareas
+    //makes them scrollable, while also being disabled
+    .enable-pointer {
+        pointer-events: all;
+    }
+}
