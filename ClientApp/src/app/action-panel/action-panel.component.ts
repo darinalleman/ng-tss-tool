@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./action-panel.component.scss']
 })
 export class ActionPanelComponent implements OnInit {
-  private fileUploaded: boolean = false;
+  public fileUploaded: boolean = false;
   constructor() { }
 
   ngOnInit() {

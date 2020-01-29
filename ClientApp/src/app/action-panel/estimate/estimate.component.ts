@@ -10,8 +10,8 @@ import { Zone } from '../../models';
 })
 export class EstimateComponent implements OnInit {
   @Input() fileUploaded: boolean = false;
-  private zones: Zone[] = [];
-  private tss: number;
+  public zones: Zone[] = [];
+  public tss: number;
   constructor(private _http: HttpClient
   ) { }
 
