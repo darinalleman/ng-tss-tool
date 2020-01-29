@@ -23,7 +23,10 @@ namespace WebApplication.Controllers
                 long size = file.Length;
                 var FilePath = "";
                 Guid FileId = Guid.NewGuid();
-                FilePath = "Uploads/" + FileId;
+                
+                FilePath = Path.Combine(  
+                  Directory.GetCurrentDirectory(), "wwwroot", "Uploads",   
+                  FileId.ToString());
             
 
                 Boolean DecodeResult;
