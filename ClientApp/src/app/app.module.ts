@@ -8,13 +8,15 @@ import { FormsModule } from '@angular/forms';
 import { UploadComponent } from './action-panel/upload/upload.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ActionPanelComponent } from './action-panel/action-panel.component';
+import { ModifyComponent } from './action-panel/modify/modify.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EstimateComponent,
     UploadComponent,
-    ActionPanelComponent
+    ActionPanelComponent,
+    ModifyComponent
   ],
   imports: [
     NgbModule,
