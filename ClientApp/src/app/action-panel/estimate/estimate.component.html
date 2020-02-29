@@ -14,6 +14,6 @@
           <input type="submit" class="btn btn-primary" value="Estimate!" (click)="submit()"/>
       </div>
       <br/>
-      <p *ngIf="tss">Your estimated TSS is {{tss}}</p>
+      <h4 *ngIf="tss">Your estimated TSS is {{tss | number:'1.1-1'}}</h4>
     </div>
 </div>
