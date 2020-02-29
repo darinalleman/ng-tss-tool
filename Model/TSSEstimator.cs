@@ -4,31 +4,15 @@ using System.Diagnostics;
 
 public static class TSSEstimator
 {
-    private static IList<int> TimeInZones;
     public static double FromHeartRate(IList<int> Zones, IList<int> HeartRates)
     {
-        TimeInZones = new List<int>( new int[10] );
-        Console.WriteLine(HeartRates.Count);
         IList<HeartRateZone> HeartRateZones = BuildZones(Zones);
-        Stopwatch sw = new Stopwatch();
-        sw.Start();
+        double totalTSS = 0;
         foreach(int HeartRate in HeartRates)
         {
-            AssignZone(HeartRate, HeartRateZones);
+            totalTSS += CalculateTSS(HeartRate, HeartRateZones);
         }
-        Console.WriteLine(sw.Elapsed);
-		double TSS = 0;
-		TSS += TimeInZones[0] * (20.0 / 3600);
-		TSS += TimeInZones[1] * (30.0 / 3600);
-		TSS += TimeInZones[2] * (40.0 / 3600);
-		TSS += TimeInZones[3] * (50.0 / 3600);
-		TSS += TimeInZones[4] * (60.0 / 3600);
-		TSS += TimeInZones[5] * (70.0 / 3600);
-		TSS += TimeInZones[6] * (80.0 / 3600);
-		TSS += TimeInZones[7] * (100.0 / 3600);
-		TSS += TimeInZones[8] * (120.0 / 3600);
-		TSS += TimeInZones[9] * (140.0 / 3600);
-		return TSS;
+		return totalTSS/3600;
     }
     /**
     http://home.trainingpeaks.com/blog/article/estimating-training-stress-score-tss
@@ -37,38 +21,41 @@ public static class TSSEstimator
     {
         Console.WriteLine(Zones[0]);
         IList<HeartRateZone> HeartRateZones = new List<HeartRateZone>();
-        HeartRateZone Zone1 = new HeartRateZone(0, Zones[0] - 40);
+        HeartRateZone Zone1 = new HeartRateZone(0, Zones[0] - 40, 0, 20);
         HeartRateZones.Add(Zone1);
-        HeartRateZone Zone2 = new HeartRateZone(Zone1.End+1, Zones[0] - 10);
+        HeartRateZone Zone2 = new HeartRateZone(Zone1.HREnd+1, Zones[0] - 10, 20, 30);
         HeartRateZones.Add(Zone2);
-        HeartRateZone Zone3 = new HeartRateZone(Zone2.End+1, Zones[0]);
+        HeartRateZone Zone3 = new HeartRateZone(Zone2.HREnd+1, Zones[0], 30, 40);
         HeartRateZones.Add(Zone3);
-        HeartRateZone Zone4 = new HeartRateZone(Zone3.End+1, Zones[1] - ((Zones[1] - Zones[0]) / 2));
+        HeartRateZone Zone4 = new HeartRateZone(Zone3.HREnd+1, Zones[1] - ((Zones[1] - Zones[0]) / 2), 40, 50);
         HeartRateZones.Add(Zone4);
-        HeartRateZone Zone5 = new HeartRateZone(Zone4.End+1, Zones[1]);
+        HeartRateZone Zone5 = new HeartRateZone(Zone4.HREnd+1, Zones[1], 50, 60);
         HeartRateZones.Add(Zone5);
-        HeartRateZone Zone6 = new HeartRateZone(Zone5.End+1, Zones[2]);
+        HeartRateZone Zone6 = new HeartRateZone(Zone5.HREnd+1, Zones[2], 60, 70);
         HeartRateZones.Add(Zone6);
-        HeartRateZone Zone7 = new HeartRateZone(Zone6.End+1, Zones[3]);
+        HeartRateZone Zone7 = new HeartRateZone(Zone6.HREnd+1, Zones[3], 70, 80);
         HeartRateZones.Add(Zone7);
-        HeartRateZone Zone8 = new HeartRateZone(Zone7.End+1, Zones[3] + (Zones[4] - Zones[3]) / 3);
+        HeartRateZone Zone8 = new HeartRateZone(Zone7.HREnd+1, Zones[3] + (Zones[4] - Zones[3]) / 3, 80, 100);
         HeartRateZones.Add(Zone8);
-        HeartRateZone Zone9 = new HeartRateZone(Zone8.End+1,  Zones[3] + 2 * (Zones[4] - Zones[3]) / 3);
+        HeartRateZone Zone9 = new HeartRateZone(Zone8.HREnd+1,  Zones[3] + 2 * (Zones[4] - Zones[3]) / 3, 100, 120);
         HeartRateZones.Add(Zone9);
-        HeartRateZone Zone10 = new HeartRateZone(Zone9.End+1,  Zones[4]);
+        HeartRateZone Zone10 = new HeartRateZone(Zone9.HREnd+1,  Zones[4], 120, 140);
         HeartRateZones.Add(Zone10);
         return HeartRateZones;
     }
 
-    private static void AssignZone(int HeartRate, IList<HeartRateZone> HeartRateZones)
+    private static double CalculateTSS(int HeartRate, IList<HeartRateZone> HeartRateZones)
     {
+        double tss = 0;
         for (int i = 0; i < HeartRateZones.Count; i++)
         {
             if (HeartRateZones[i].Contains(HeartRate))
             {
-                TimeInZones[i]++;
+                HeartRateZone HRZ = HeartRateZones[i];
+                tss = HRZ.TSSStart + (HeartRate - HRZ.HRStart)*((HRZ.TSSEnd - HRZ.TSSStart)/(HRZ.HREnd - HRZ.HRStart));
             }
         }
+        return tss;
     }
 
 }
