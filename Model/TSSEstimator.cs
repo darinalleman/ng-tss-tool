@@ -12,7 +12,12 @@ public static class TSSEstimator
         {
             totalTSS += CalculateTSS(HeartRate, HeartRateZones);
         }
-		return totalTSS/3600;
+        if (totalTSS > 0) 
+        {
+    		return totalTSS/3600;
+        }
+        else 
+            return 0;
     }
     /**
     http://home.trainingpeaks.com/blog/article/estimating-training-stress-score-tss

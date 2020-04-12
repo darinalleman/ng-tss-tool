@@ -16,7 +16,6 @@ namespace WebApplication.Controllers
         [HttpPost, Route("api/Estimate/{fileId:guid}")]
         public IActionResult Estimate([FromBody] int[] zones, Guid fileId)
         {
-            Console.WriteLine(fileId);
             try{
                 var zonesInt = new List<int>();
                 foreach (int z in zones)
