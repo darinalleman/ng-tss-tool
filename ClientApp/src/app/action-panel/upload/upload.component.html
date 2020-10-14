@@ -7,4 +7,4 @@
         <input type="file" accept=".fit" (change)="changed($event)">
     </div>
 </div>
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "ball-climbing-dot" [fullScreen] = "true"><p style="color: white" > Uploading... </p></ngx-spinner>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "ball-climbing-dot" [fullScreen] = "true"><p style="color: white" > Uploading... {{uploadProgress}}% </p></ngx-spinner>
