@@ -16,7 +16,7 @@ export class UploadComponent {
   private previewUrl:any = null;
   private fileUploadProgress: string = null;
   private uploadedFilePath: string = null;
-  private uploadProgress: number  = 0;
+  uploadProgress: number  = 0;
   constructor(private http: HttpClient, private _file: FileService, private spinner: NgxSpinnerService) { }
 
   changed(fileInput) {
