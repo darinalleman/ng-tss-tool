@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,7 @@ import { UploadComponent } from './action-panel/upload/upload.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ActionPanelComponent } from './action-panel/action-panel.component';
 import { ModifyComponent } from './action-panel/modify/modify.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -20,12 +22,15 @@ import { ModifyComponent } from './action-panel/modify/modify.component';
   ],
   imports: [
     NgbModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule
   ],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
