@@ -21,6 +21,9 @@ namespace WebApplication.Controllers
                 var file = form.Files.First();
                 if (file == null) return null;
                 long size = file.Length;
+                Console.WriteLine("***File Upload***");
+                Console.WriteLine(file.FileName);
+
                 var FilePath = "";
                 Guid FileId = Guid.NewGuid();
                 
