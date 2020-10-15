@@ -8,6 +8,8 @@ namespace Models
     public class TSSTool
     {
         private static TSSTool Instance = null;
+        public static int AveragePower { get; set;}
+        public static double TSS { get; set;}
 
         public static TSSTool GetInstance()
         {
@@ -31,6 +33,7 @@ namespace Models
             //add HrMesg listener HeartRateMesgListener
             Broadcaster.RecordMesgEvent += HeartRateMesgListener.MesgEvent;
             Broadcaster.SessionMesgEvent += ElapsedTimeMesgListener.MesgEvent;
+            //Broadcaster.RecordMesgEvent += PowerEncodeListener.MesgEvent;
 
             Boolean status = decoder.IsFIT(fitSource);
             status &= decoder.CheckIntegrity(fitSource);
@@ -64,7 +67,6 @@ namespace Models
             }
             fitSource.Dispose();
             return DecodeResult;
-           
         }
 
     }

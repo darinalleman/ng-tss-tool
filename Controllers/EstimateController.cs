@@ -23,6 +23,7 @@ namespace WebApplication.Controllers
                     zonesInt.Add(Convert.ToInt32(z));
                 }
                 var tss = TSSEstimator.FromHeartRate(zonesInt, HeartRateLogger.Instance.HeartRates);
+                Console.WriteLine(PowerEstimator.CalculatePower(315));
                 var FilePath = Path.Combine(  
                   Directory.GetCurrentDirectory(), "wwwroot", "Uploads",   
                   fileId.ToString());

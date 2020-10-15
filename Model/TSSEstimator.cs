@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System;
-using System.Diagnostics;
+using Models;
 
 public static class TSSEstimator
 {
@@ -14,7 +14,9 @@ public static class TSSEstimator
         }
         if (totalTSS > 0) 
         {
-    		return totalTSS/3600;
+            var finalTSS = totalTSS/3600;
+            TSSTool.TSS = finalTSS;
+    		return finalTSS;
         }
         else 
             return 0;
@@ -24,7 +26,6 @@ public static class TSSEstimator
      */
     private static IList<HeartRateZone> BuildZones(IList<int> Zones)
     {
-        Console.WriteLine(Zones[0]);
         IList<HeartRateZone> HeartRateZones = new List<HeartRateZone>();
         HeartRateZone Zone1 = new HeartRateZone(0, Zones[0] - 40, 0, 20);
         HeartRateZones.Add(Zone1);

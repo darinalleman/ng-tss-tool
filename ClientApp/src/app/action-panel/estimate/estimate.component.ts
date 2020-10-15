@@ -18,11 +18,11 @@ export class EstimateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.zones.push({name: "Zone 1", bpm: 125});
-    this.zones.push({name: "Zone 2", bpm: 145});
-    this.zones.push({name: "Zone 3", bpm: 160});
-    this.zones.push({name: "Zone 4", bpm: 180});
-    this.zones.push({name: "Zone 5", bpm: 205});
+    this.zones.push({name: "Zone 1", bpm: 162});
+    this.zones.push({name: "Zone 2", bpm: 176});
+    this.zones.push({name: "Zone 3", bpm: 188});
+    this.zones.push({name: "Zone 4", bpm: 200});
+    this.zones.push({name: "Zone 5", bpm: 215});
 
   }
 
