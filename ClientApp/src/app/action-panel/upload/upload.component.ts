@@ -17,6 +17,7 @@ export class UploadComponent {
   private fileUploadProgress: string = null;
   private uploadedFilePath: string = null;
   uploadProgress: number  = 0;
+  uploadString: string = "Uploading... ";
   constructor(private http: HttpClient, private _file: FileService, private spinner: NgxSpinnerService) { }
 
   changed(fileInput) {
@@ -33,6 +34,10 @@ export class UploadComponent {
           }
           else if (res.type === HttpEventType.UploadProgress) {
             this.uploadProgress = Math.round(100 * res.loaded / res.total);
+            this.uploadString += this.uploadProgress + "%";
+            if (this.uploadProgress == 100) {
+              this.uploadString = "Processing file...";
+            }
           }
       });
   }
