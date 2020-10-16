@@ -16,12 +16,19 @@ namespace Models
                     Field PowerField = e.mesg.GetField(RecordMesg.FieldDefNum.Power);
                     if (PowerField == null)
                     {
-                        PowerField = new Field(RecordMesg.FieldDefNum.Power, 2);
-                        PowerField.SetValue(100);
+                        PowerField = new Field("Power", RecordMesg.FieldDefNum.Power, 132, 1, 0, "watts", false, Profile.Type.DisplayPower);
+                        PowerField.SetValue(TSSTool.AveragePower);
                         e.mesg.InsertField(0, PowerField);
                     }   
                 }
             }
+            TSSTool.Encoder.Write(e.mesg);
         }
+
+        public static void MesgDefinitionEvent(object sender, MesgDefinitionEventArgs e) 
+        {
+            TSSTool.Encoder.Write(e.mesgDef);
+        }
+
     }
 }

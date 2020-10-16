@@ -27,6 +27,9 @@ Obj/
 wwwroot/Uploads/*
 !wwwroot/Uploads/*.txt
 
+wwwroot/Downloads/*
+!wwwroot/Downloads/*.txt
+
 # Visual Studio 2015 cache/options directory
 .vs/
 

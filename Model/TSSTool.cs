@@ -10,6 +10,7 @@ namespace Models
         private static TSSTool Instance = null;
         public static int AveragePower { get; set;}
         public static double TSS { get; set;}
+        public static Dynastream.Fit.Encode Encoder = new Encode(ProtocolVersion.V20);
 
         public static TSSTool GetInstance()
         {
@@ -66,6 +67,23 @@ namespace Models
                     }
             }
             fitSource.Dispose();
+            return DecodeResult;
+        }
+
+        public Boolean EncodeFile(FileStream fitSource, FileStream fitDest) 
+        {
+            Encoder.Open(fitDest);
+            Decode decoder = new Decode();
+            MesgBroadcaster Broadcaster = new MesgBroadcaster();
+            decoder.MesgEvent += Broadcaster.OnMesg;
+            decoder.MesgDefinitionEvent += Broadcaster.OnMesgDefinition;
+            Broadcaster.MesgEvent += PowerEncodeListener.MesgEvent;
+            Broadcaster.MesgDefinitionEvent += PowerEncodeListener.MesgDefinitionEvent;
+            Boolean DecodeResult;
+            DecodeResult = decoder.Read(fitSource);
+            Encoder.Close();
+            fitSource.Close();
+            fitDest.Close();
             return DecodeResult;
         }
 
