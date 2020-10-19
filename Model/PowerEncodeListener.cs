@@ -24,11 +24,5 @@ namespace Models
             }
             TSSTool.Encoder.Write(e.mesg);
         }
-
-        public static void MesgDefinitionEvent(object sender, MesgDefinitionEventArgs e) 
-        {
-            TSSTool.Encoder.Write(e.mesgDef);
-        }
-
     }
 }

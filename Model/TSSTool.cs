@@ -34,7 +34,6 @@ namespace Models
             //add HrMesg listener HeartRateMesgListener
             Broadcaster.RecordMesgEvent += HeartRateMesgListener.MesgEvent;
             Broadcaster.SessionMesgEvent += ElapsedTimeMesgListener.MesgEvent;
-            //Broadcaster.RecordMesgEvent += PowerEncodeListener.MesgEvent;
 
             Boolean status = decoder.IsFIT(fitSource);
             status &= decoder.CheckIntegrity(fitSource);
@@ -78,9 +77,14 @@ namespace Models
             decoder.MesgEvent += Broadcaster.OnMesg;
             decoder.MesgDefinitionEvent += Broadcaster.OnMesgDefinition;
             Broadcaster.MesgEvent += PowerEncodeListener.MesgEvent;
-            Broadcaster.MesgDefinitionEvent += PowerEncodeListener.MesgDefinitionEvent;
-            Boolean DecodeResult;
-            DecodeResult = decoder.Read(fitSource);
+
+            Boolean DecodeResult = false;
+            try {
+                DecodeResult = decoder.Read(fitSource);
+            }catch (Exception e) {
+                Console.WriteLine("ERROR ENCODING");
+                Console.WriteLine(e.InnerException);
+            }
             Encoder.Close();
             fitSource.Close();
             fitDest.Close();

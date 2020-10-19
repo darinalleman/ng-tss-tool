@@ -47,17 +47,17 @@ namespace WebApplication.Controllers
                 TSSTool.AveragePower = watts;
                 var NewFilePath = Path.Combine(  
                   Directory.GetCurrentDirectory(), "wwwroot", "Downloads",   
-                  "" + DateTime.Now.ToString("yyyy-MM-dd-ffff") + ".fit");
+                  "" + DateTime.Now.ToString("yyyy-MM-dd-HHmm") + ".fit");
                 // var averagePowerMissingFTP = tss*36/ElapsedTimeLogger.Instance.ElapsedTime; //need to multiply by FTP^2 and then take the square root of that
 
                 Boolean DecodeResult;
                 Boolean result = false;
   
                 DecodeResult = TSSTool.GetInstance().EncodeFile(
-                    new FileStream(NewFilePath, FileMode.Create, FileAccess.ReadWrite),
                     new FileStream(Path.Combine(  
                         Directory.GetCurrentDirectory(), "wwwroot", "Uploads",   
-                            fileId.ToString()), FileMode.Open));
+                            fileId.ToString()), FileMode.Open),
+                    new FileStream(NewFilePath, FileMode.Create, FileAccess.ReadWrite));
                 result = DecodeResult;
                 
                 return Ok();
