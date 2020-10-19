@@ -11,6 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class UploadComponent {
   @Output() uploaded = new EventEmitter();
+  @Output() elapsedTime: EventEmitter<number> = new EventEmitter<number>();
 
   private fileData: File = null;
   private previewUrl:any = null;
@@ -31,6 +32,7 @@ export class UploadComponent {
             this.spinner.hide();
             this._file.setFileId(res.body.fileId);
             this._file.setFileName(this.fileData.name);
+            this.elapsedTime.emit(Number.parseInt(res.body['elapsedTime']));
             this.uploaded.emit("");
           }
           else if (res.type === HttpEventType.UploadProgress) {

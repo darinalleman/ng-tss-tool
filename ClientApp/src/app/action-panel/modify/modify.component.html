@@ -1,4 +1,4 @@
-<div class="panel panel-primary" *ngIf="true">
+<div class="panel panel-primary" [ngClass]="{'disable-all': !fileUploaded}">
   <div id="accordion">
     <div class="card">
       <div class="card-header" id="headingOne">
@@ -9,7 +9,7 @@
         </h5>
       </div>
   
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
           <estimate
             [fileUploaded]="fileUploaded"
@@ -28,7 +28,11 @@
       </div>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
         <div class="card-body">
-          Coming soon!
+          <has-ftp
+            [fileUploaded]="fileUploaded"
+            [elapsedTime]="elapsedTime"
+            class="col-md-4">
+          </has-ftp>
         </div>
       </div>
     </div>
@@ -42,7 +46,8 @@
       </div>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
         <div class="card-body">
-          Coming soon!
+          <has-power class="col-md-4">
+          </has-power>
         </div>
       </div>
     </div>
