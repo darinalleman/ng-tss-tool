@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ModifyComponent implements OnInit {
   @Input() fileUploaded: boolean = false;
+  @Input() elapsedTime: number = 0;
   constructor() { }
 
   ngOnInit() {

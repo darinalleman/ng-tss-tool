@@ -1,0 +1,21 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h5 class="panel-title">Enter the power you'd like to set for the entire activity.</h5>
+    </div>
+    <div class="panel-body">
+        <div class="input-group">
+            Power <input [(ngModel)]="averagePower" type="number" class="input-spacing"/>
+            <span class="input-group-addon" id="basic-addon1">w</span>
+        </div>
+        <br>
+        <input *ngIf="averagePower > 0" type="submit" class="btn btn-primary" value="Add power to file" (click)="encode()"/>
+    </div>
+</div>
+<ngx-spinner 
+    bdColor = "rgba(0, 0, 0, 0.8)"
+    size = "large"
+    color = "#fff" 
+    type = "ball-climbing-dot"
+    [fullScreen] = "true">
+    <p style="color: white" > Processing... </p>
+</ngx-spinner>

@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActionPanelComponent implements OnInit {
   public fileUploaded: boolean = false;
+  public elapsedTime: number = 0;
   constructor() { }
 
   ngOnInit() {
@@ -15,4 +16,11 @@ export class ActionPanelComponent implements OnInit {
   fileUploadListener() {
       this.fileUploaded = true;
   }
+
+  elapsedTimeListener(seconds: number) {
+    console.log(seconds);
+    this.elapsedTime = seconds;
+}
+
+
 }

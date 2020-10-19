@@ -34,6 +34,7 @@ namespace WebApplication.Controllers
 
                 Boolean DecodeResult;
                 Boolean result = false;
+                int ElapsedTime = 0;
 
                 if (size > 0)
                 {
@@ -42,10 +43,11 @@ namespace WebApplication.Controllers
                         await file.CopyToAsync(stream);
                     }
                     DecodeResult = TSSTool.GetInstance().DecodeFile(new FileStream(FilePath, FileMode.Open));
+                    ElapsedTime = ElapsedTimeLogger.Instance.ElapsedTime;
                     result = DecodeResult;
                 }
 
-                return Ok(new { size, FileId, result });
+                return Ok(new { size, FileId, result, ElapsedTime });
             }
             catch (Exception ex) {
                 var originalMessage = ex.Message;

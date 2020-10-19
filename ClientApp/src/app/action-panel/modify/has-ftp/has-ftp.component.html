@@ -1,0 +1,26 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h5 class="panel-title">Enter your estimated TSS and FTP</h5>
+    </div>
+    <div class="panel-body">
+        <div class="input-group">
+            TSS <input [(ngModel)]="tss" (ngModelChange)="calculatePower()" type="number" class="input-spacing"/>
+        </div>
+        <div class="input-group">
+            FTP <input [(ngModel)]="ftp" (ngModelChange)="calculatePower()"  type="number" class="input-spacing"/>
+            <span class="input-group-addon" id="basic-addon1">w</span>
+        </div>
+        <br>
+        <h5 *ngIf="ftp > 0 && averagePower">You would have normalized {{averagePower | number:'1.1-1'}}w to accumulate {{tss | number:'1.1-1'}} TSS.</h5>
+        <input *ngIf="averagePower > 0" type="submit" class="btn btn-primary" value="Add power to file" (click)="encode()"/>
+    </div>
+</div>
+<ngx-spinner 
+    bdColor = "rgba(0, 0, 0, 0.8)"
+    size = "large"
+    color = "#fff" 
+    type = "ball-climbing-dot"
+    [fullScreen] = "true">
+    <p style="color: white" > Processing... </p>
+</ngx-spinner>
+  

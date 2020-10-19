@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
-      <h3 class="panel-title">Estimate TSS from your heart rate</h3>
+      <h5 class="panel-title">Estimate TSS from your heart rate</h5>
   </div>
   <div class="panel-body">
       <p>Enter the highest BPM in each of your zones. <br><small>Zone 5 ends should be your max HR.</small></p>
@@ -22,8 +22,16 @@
             <span class="input-group-addon" id="basic-addon1">w</span>
         </div>
         <br>
-        <h4 *ngIf="ftp > 0 && averagePower">You would have normalized {{averagePower | number:'1.1-1'}}w to get {{tss | number:'1.1-1'}} TSS.</h4>
-        <input type="submit" class="btn btn-primary" value="Edit file" (click)="encode()"/>
+        <h4 *ngIf="ftp > 0 && averagePower">You would have normalized {{averagePower | number:'1.1-1'}}w to accumulate {{tss | number:'1.1-1'}} TSS.</h4>
+        <input type="submit" class="btn btn-primary" value="Add power to file" (click)="encode()"/>
       </div>
     </div>
 </div>
+<ngx-spinner 
+    bdColor = "rgba(0, 0, 0, 0.8)"
+    size = "large"
+    color = "#fff" 
+    type = "ball-climbing-dot"
+    [fullScreen] = "true">
+    <p style="color: white" > Processing... </p>
+</ngx-spinner>

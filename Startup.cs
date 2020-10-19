@@ -71,7 +71,7 @@ namespace ng_tss_tool
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
-
+            
             app.UseForwardedHeaders(new ForwardedHeadersOptions {
                 ForwardedHeaders = ForwardedHeaders.All
             });
