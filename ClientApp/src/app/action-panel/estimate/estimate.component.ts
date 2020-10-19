@@ -41,12 +41,27 @@ export class EstimateComponent implements OnInit {
     if (this.averagePower > 0) {
       this._http.post('/api/Modify/'+ this._file.getFileId(), Math.round(this.averagePower))
         .subscribe(res => {
+          console.log(res);
+          this._http.get('/api/Download/'+ this._file.getFileId(), {responseType: 'blob'}).subscribe((response: Blob) => {
+            var filename = "TSSTool_" + this._file.getFileName();
+            if (window.navigator.msSaveOrOpenBlob) { // for IE and Edge
+              window.navigator.msSaveBlob(response, filename);
+            } else {
+                // for modern browsers, click an invisible button that will download the file
+                var a = document.createElement('a');
+                a.href = window.URL.createObjectURL(response);
+                a.download = filename;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            }
+          });
       });
     }
   }
 
   ftpListener() {
-    console.log(this.averagePowerMissingFTP);
     this.averagePower = Math.sqrt(this.averagePowerMissingFTP * this.ftp * this.ftp);
   }
 

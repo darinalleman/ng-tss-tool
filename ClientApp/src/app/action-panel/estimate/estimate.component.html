@@ -18,7 +18,7 @@
       <div *ngIf="tss">
         <h4>Your estimated TSS is {{tss | number:'1.1-1'}}</h4>
         <div class="input-group">
-            FTP <input [(ngModel)]="ftp" (change)="ftpListener()" type="number" class="input-spacing"/>
+            FTP <input [(ngModel)]="ftp" (ngModelChange)="ftpListener()" (change)="ftpListener()" type="number" class="input-spacing"/>
             <span class="input-group-addon" id="basic-addon1">w</span>
         </div>
         <br>
