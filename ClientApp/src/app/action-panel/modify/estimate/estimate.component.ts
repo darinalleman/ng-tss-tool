@@ -32,22 +32,22 @@ export class EstimateComponent implements OnInit {
   }
 
   submit() {
-    this._spinner.show();
+    this._spinner.show("processing");
     this._http.post('/api/Estimate/'+ this._file.getFileId(),  this.zones.map(zone => zone.bpm))
       .subscribe(res => {
         this.tss = res['tss'];
-        this._spinner.hide();
+        this._spinner.hide("processing");
         this.averagePowerMissingFTP = res['averagePowerMissingFTP'];
       })
   }
 
   encode() {
     if (this.averagePower > 0) {
-      this._spinner.show();
+      this._spinner.show("processing");
       this._http.post('/api/Modify/'+ this._file.getFileId(), Math.round(this.averagePower))
         .subscribe(res => {
           this._http.get('/api/Download/'+ this._file.getFileId(), {responseType: 'blob'}).subscribe((response: Blob) => {
-            this._spinner.hide();
+            this._spinner.hide("processing");
             var filename = "TSSTool_" + this._file.getFileName();
             if (window.navigator.msSaveOrOpenBlob) { // for IE and Edge
               window.navigator.msSaveBlob(response, filename);

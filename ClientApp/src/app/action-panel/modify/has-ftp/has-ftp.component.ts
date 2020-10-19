@@ -32,11 +32,11 @@ export class HasFtpComponent implements OnInit {
 
   encode() {
     if (this.averagePower > 0) {
-      this._spinner.show();
+      this._spinner.show("processing");
       this._http.post('/api/Modify/'+ this._file.getFileId(), Math.round(this.averagePower))
         .subscribe(res => {
           this._http.get('/api/Download/'+ this._file.getFileId(), {responseType: 'blob'}).subscribe((response: Blob) => {
-            this._spinner.hide();
+            this._spinner.hide("processing");
             var filename = "TSSTool_" + this._file.getFileName();
             if (window.navigator.msSaveOrOpenBlob) { // for IE and Edge
               window.navigator.msSaveBlob(response, filename);

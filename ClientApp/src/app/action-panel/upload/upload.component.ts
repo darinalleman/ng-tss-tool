@@ -26,10 +26,10 @@ export class UploadComponent {
     this.uploaded.emit("");//for testing
     const formData = new FormData();
     formData.append('file', this.fileData);
-    this.spinner.show();
+    this.spinner.show("upload");
     this.http.post<any>('/api/Upload', formData, {reportProgress: true, observe: 'events'}).subscribe(res => {
           if (res.type === HttpEventType.Response) {
-            this.spinner.hide();
+            this.spinner.hide("upload");
             this._file.setFileId(res.body.fileId);
             this._file.setFileName(this.fileData.name);
             this.elapsedTime.emit(Number.parseInt(res.body['elapsedTime']));
