@@ -30,6 +30,7 @@ export class UploadComponent {
           if (res.type === HttpEventType.Response) {
             this.spinner.hide();
             this._file.setFileId(res.body.fileId);
+            this._file.setFileName(this.fileData.name);
             this.uploaded.emit("");
           }
           else if (res.type === HttpEventType.UploadProgress) {

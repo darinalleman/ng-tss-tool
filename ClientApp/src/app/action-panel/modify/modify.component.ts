@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'modify',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./modify.component.scss']
 })
 export class ModifyComponent implements OnInit {
-
+  @Input() fileUploaded: boolean = false;
   constructor() { }
 
   ngOnInit() {

@@ -11,7 +11,7 @@ using Models;
 
 namespace WebApplication.Controllers
 {
-    public class UploadController : Controller
+    public class FileController : Controller
     {
         [HttpPost, Route("api/Upload")]
         public async Task<IActionResult> Upload()
@@ -54,6 +54,16 @@ namespace WebApplication.Controllers
                     ex = ex.InnerException;
                     return BadRequest($"{originalMessage} | {ex.Message}");
             }
+        }
+
+        [HttpGet, Route("api/Download/{fileId:guid}")]
+        public IActionResult Download(Guid fileId) 
+        {
+            var NewFilePath = Path.Combine(  
+                  Directory.GetCurrentDirectory(), "wwwroot", "Downloads",   
+                  "" + fileId.ToString() + ".fit");
+            var FileStream = new FileStream(NewFilePath, FileMode.Open, FileAccess.Read);
+            return File(FileStream, "application/octet-stream");
         }
     }
 }

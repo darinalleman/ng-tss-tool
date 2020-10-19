@@ -1,9 +1,50 @@
-<div class="panel panel-primary" *ngIf="false">
-  <div class="panel-heading">
-      <h3 class="panel-title">Modify Your Ride</h3>
-  </div>
-  <div class="panel-body">
-      <p style="color:red">Coming soon!</p>
-      <p>Edits your ride with an average power that will result in the TSS entered.</p>
+<div class="panel panel-primary" *ngIf="true">
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            I want to set an average power using the estimated TSS from heart rate
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          <estimate
+            [fileUploaded]="fileUploaded"
+            class="col-md-4">
+          </estimate>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            I want to set an average power by entering my TSS and FTP
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+          Coming soon!
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            I just want to set an average power
+          </button>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body">
+          Coming soon!
+        </div>
+      </div>
+    </div>
   </div>
 </div>

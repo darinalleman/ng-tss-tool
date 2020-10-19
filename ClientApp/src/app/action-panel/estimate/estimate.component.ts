@@ -12,17 +12,20 @@ export class EstimateComponent implements OnInit {
   @Input() fileUploaded: boolean = false;
   public zones: Zone[] = [];
   public tss: number;
+  public ftp: number;
+  public averagePower: number;
+  public averagePowerMissingFTP: number;
   constructor(
     private _http: HttpClient,
     private _file: FileService
   ) { }
 
   ngOnInit() {
-    this.zones.push({name: "Zone 1", bpm: 125});
-    this.zones.push({name: "Zone 2", bpm: 145});
-    this.zones.push({name: "Zone 3", bpm: 160});
-    this.zones.push({name: "Zone 4", bpm: 180});
-    this.zones.push({name: "Zone 5", bpm: 205});
+    this.zones.push({name: "Zone 1 ends:", bpm: 162});
+    this.zones.push({name: "Zone 2 ends:", bpm: 176});
+    this.zones.push({name: "Zone 3 ends:", bpm: 188});
+    this.zones.push({name: "Zone 4 ends:", bpm: 200});
+    this.zones.push({name: "Zone 5 ends:", bpm: 215});
 
   }
 
@@ -30,8 +33,36 @@ export class EstimateComponent implements OnInit {
     this._http.post('/api/Estimate/'+ this._file.getFileId(),  this.zones.map(zone => zone.bpm))
       .subscribe(res => {
         this.tss = res['tss'];
+        this.averagePowerMissingFTP = res['averagePowerMissingFTP'];
       })
+  }
 
+  encode() {
+    if (this.averagePower > 0) {
+      this._http.post('/api/Modify/'+ this._file.getFileId(), Math.round(this.averagePower))
+        .subscribe(res => {
+          console.log(res);
+          this._http.get('/api/Download/'+ this._file.getFileId(), {responseType: 'blob'}).subscribe((response: Blob) => {
+            var filename = "TSSTool_" + this._file.getFileName();
+            if (window.navigator.msSaveOrOpenBlob) { // for IE and Edge
+              window.navigator.msSaveBlob(response, filename);
+            } else {
+                // for modern browsers, click an invisible button that will download the file
+                var a = document.createElement('a');
+                a.href = window.URL.createObjectURL(response);
+                a.download = filename;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            }
+          });
+      });
+    }
+  }
+
+  ftpListener() {
+    this.averagePower = Math.sqrt(this.averagePowerMissingFTP * this.ftp * this.ftp);
   }
 
 }

@@ -3,7 +3,7 @@
       <h3 class="panel-title">Estimate TSS from your heart rate</h3>
   </div>
   <div class="panel-body">
-      <p>Enter the highest BPM in each of your zones. <br><small>For example, my zone 3 ends at 160bpm. Zone 3 = 160bpm and Zone 5 = my max heart rate.</small></p>
+      <p>Enter the highest BPM in each of your zones. <br><small>Zone 5 ends should be your max HR.</small></p>
      
       <div [ngClass]="{'disable-all': !fileUploaded}">
           <div class="input-group" *ngFor="let zone of zones;">
@@ -11,9 +11,19 @@
               <span class="input-group-addon" id="basic-addon1"> bpm</span>
           </div>
           <br>
-          <input type="submit" class="btn btn-primary" value="Estimate!" (click)="submit()"/>
+          <input type="submit" class="btn btn-primary" value="Estimate TSS!" (click)="submit()"/>
       </div>
       <br/>
-      <h4 *ngIf="tss">Your estimated TSS is {{tss | number:'1.1-1'}}</h4>
+
+      <div *ngIf="tss">
+        <h4>Your estimated TSS is {{tss | number:'1.1-1'}}</h4>
+        <div class="input-group">
+            FTP <input [(ngModel)]="ftp" (ngModelChange)="ftpListener()" (change)="ftpListener()" type="number" class="input-spacing"/>
+            <span class="input-group-addon" id="basic-addon1">w</span>
+        </div>
+        <br>
+        <h4 *ngIf="ftp > 0 && averagePower">You would have normalized {{averagePower | number:'1.1-1'}}w to get {{tss | number:'1.1-1'}} TSS.</h4>
+        <input type="submit" class="btn btn-primary" value="Edit file" (click)="encode()"/>
+      </div>
     </div>
 </div>

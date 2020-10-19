@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Dynastream.Fit;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
@@ -23,13 +22,45 @@ namespace WebApplication.Controllers
                     zonesInt.Add(Convert.ToInt32(z));
                 }
                 var tss = TSSEstimator.FromHeartRate(zonesInt, HeartRateLogger.Instance.HeartRates);
+                var averagePowerMissingFTP = tss*36/ElapsedTimeLogger.Instance.ElapsedTime; //need to multiply by FTP^2 and then take the square root of that
                 var FilePath = Path.Combine(  
                   Directory.GetCurrentDirectory(), "wwwroot", "Uploads",   
                   fileId.ToString());
-                //now that we've estimated it, we can delete it
-                //this may be removed in the future if we need it for othe things
-                System.IO.File.Delete(FilePath);
-                return Ok((new { tss }));
+                // //now that we've estimated it, we can delete it
+                // //this may be removed in the future if we need it for othe things
+                // System.IO.File.Delete(FilePath);
+                return Ok((new { tss, averagePowerMissingFTP }));
+            }
+            catch (Exception ex) {
+                var originalMessage = ex.Message;
+
+                while (ex.InnerException != null)
+                    ex = ex.InnerException;
+                    return BadRequest($"{originalMessage} | {ex.Message}");
+            }
+        }
+
+        [HttpPost, Route("api/Modify/{fileId:guid}")]
+        public IActionResult Modify([FromBody] int watts, Guid fileId)
+        {
+            try{
+                TSSTool.AveragePower = watts;
+                var NewFilePath = Path.Combine(  
+                  Directory.GetCurrentDirectory(), "wwwroot", "Downloads",   
+                  "" + fileId.ToString() + ".fit");
+                // var averagePowerMissingFTP = tss*36/ElapsedTimeLogger.Instance.ElapsedTime; //need to multiply by FTP^2 and then take the square root of that
+
+                Boolean DecodeResult;
+                Boolean result = false;
+  
+                DecodeResult = TSSTool.GetInstance().EncodeFile(
+                    new FileStream(Path.Combine(  
+                        Directory.GetCurrentDirectory(), "wwwroot", "Uploads",   
+                            fileId.ToString()), FileMode.Open),
+                    new FileStream(NewFilePath, FileMode.Create, FileAccess.ReadWrite));
+                result = DecodeResult;
+                
+                return Ok(new {result, fileId});
             }
             catch (Exception ex) {
                 var originalMessage = ex.Message;
