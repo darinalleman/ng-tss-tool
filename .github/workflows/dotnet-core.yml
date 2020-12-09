@@ -23,6 +23,7 @@ jobs:
       run: dotnet publish --runtime linux-x64 -p:PublishReadyToRun=true -v n
     
   deploy:
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-dotnet@v1
