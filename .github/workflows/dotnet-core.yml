@@ -34,5 +34,7 @@ jobs:
         REMOTE_HOST: ${{ secrets.SSH_REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.SSH_REMOTE_USER }}
         TARGET: ${{ secrets.SSH_TARGET }}
+    - name:  Print stuff
+      run: echo "All done!"
     
       
