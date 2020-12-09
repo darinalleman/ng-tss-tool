@@ -14,13 +14,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
       run: dotnet restore
     - name: Publish
       run: dotnet publish --runtime linux-x64 -p:PublishReadyToRun=true -v n
+    
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-dotnet@v1
     - name: Deploy to Staging server
       uses: easingthemes/ssh-deploy@v2.1.5
       env:
