@@ -19,12 +19,6 @@ jobs:
       run: dotnet restore
     - name: Publish
       run: dotnet publish --runtime linux-x64 -p:PublishReadyToRun=true -v n
-    
-  deploy:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/setup-dotnet@v1
     - name: Deploy to server
       uses: wlixcc/SFTP-Deploy-Action@v1.0
       with:
