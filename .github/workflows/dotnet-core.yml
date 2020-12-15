@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-dotnet@v1
-    - name: Deploy to Staging server
+    - name: Deploy to server
       uses: wangyucode/sftp-upload-action@v1.1
       env:
         host: ${{ secrets.VULTR_HOST }}  
