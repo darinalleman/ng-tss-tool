@@ -25,8 +25,8 @@ jobs:
         server: ${{ secrets.VULTR_HOST }}  
         username: ${{ secrets.VULTR_USERNAME }}
         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-        local_path: "./bin/Debug/netcoreapp3.1/linux-x64/publish"
-        remote_path: "/var/www/tss.darinalleman.xyz"
+        local_path: "./bin/Debug/netcoreapp3.1/linux-x64/publish/"
+        remote_path: "/var/www/tss.darinalleman.xyz/"
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:
