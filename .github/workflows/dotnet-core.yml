@@ -40,7 +40,7 @@ jobs:
         username: ${{ secrets.VULTR_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
-        script: whoami  
+        script: systemctl restart kestrel-ng-tss-tool.service  
     - name:  Print stuff
       run: echo "All done!"
 
