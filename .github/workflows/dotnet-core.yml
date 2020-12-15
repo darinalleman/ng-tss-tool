@@ -26,15 +26,13 @@ jobs:
     steps:
     - uses: actions/setup-dotnet@v1
     - name: Deploy to server
-      uses: wangyucode/sftp-upload-action@v1.1
-      env:
-        host: ${{ secrets.VULTR_HOST }}  
-        port: 22
+      uses: wlixcc/SFTP-Deploy-Action@v1.0
+      with:
+        server: ${{ secrets.VULTR_HOST }}  
         username: ${{ secrets.VULTR_USERNAME }}
-        password: ${{ secrets.VULTR_PASSWORD }}
-        localDir: "/bin/Debug/netcoreapp3.1/linux-x64/publish"
-        remoteDir: "/var/www/tss.darinalleman.xyz"
-        dryRun: true
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        local_path: "/bin/Debug/netcoreapp3.1/linux-x64/publish"
+        remote_path: "/var/www/tss.darinalleman.xyz"
     - name:  Print stuff
       run: echo "All done!"
 
