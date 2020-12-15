@@ -33,7 +33,7 @@ jobs:
         host: ${{ secrets.VULTR_HOST }}
         username: ${{ secrets.VULTR_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: ${{ secrets.PORT }}
+        port: 22
         script: systemctl restart kestrel-ng-tss-tool.service  
     - name:  Print stuff
       run: echo "All done!"
