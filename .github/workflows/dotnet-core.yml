@@ -1,0 +1,42 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Publish
+      run: dotnet publish --runtime linux-x64 -p:PublishReadyToRun=true -v n
+    - name: Deploy to server
+      uses: wlixcc/SFTP-Deploy-Action@v1.0
+      with:
+        server: ${{ secrets.VULTR_HOST }}  
+        username: ${{ secrets.VULTR_USERNAME }}
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        local_path: "./bin/Debug/netcoreapp3.1/linux-x64/publish/."
+        remote_path: "/var/www/tss.darinalleman.xyz/"
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.VULTR_HOST }}
+        username: ${{ secrets.VULTR_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: systemctl restart kestrel-ng-tss-tool.service  
+    - name:  Print stuff
+      run: echo "All done!"
+
+    
+      
