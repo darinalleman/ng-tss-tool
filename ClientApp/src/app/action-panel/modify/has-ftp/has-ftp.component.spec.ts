@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HasFtpComponent } from './has-ftp.component';
 
@@ -6,7 +6,7 @@ describe('HasFtpComponent', () => {
   let component: HasFtpComponent;
   let fixture: ComponentFixture<HasFtpComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ HasFtpComponent ]
     })

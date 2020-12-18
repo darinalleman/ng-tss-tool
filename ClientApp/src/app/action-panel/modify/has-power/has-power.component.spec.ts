@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HasPowerComponent } from './has-power.component';
 
@@ -6,7 +6,7 @@ describe('HasPowerComponent', () => {
   let component: HasPowerComponent;
   let fixture: ComponentFixture<HasPowerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ HasPowerComponent ]
     })
