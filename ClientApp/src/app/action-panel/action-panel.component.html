@@ -1,6 +1,6 @@
 <div class="row centered">
     <upload
-        (uploaded)="fileUploadListener()"
+        (uploaded)="fileUploadListener($event)"
         (elapsedTime)="elapsedTimeListener($event)"
         class="col-md-6"></upload>
     <modify

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Rewrite;
@@ -73,12 +74,30 @@ namespace ng_tss_tool
                 }
             });
 
-            app.UseRewriter(new RewriteOptions()
-                .AddRedirect("index.html", "/"));
+            app.UseRootRewrite();
+
 
             app.UseForwardedHeaders(new ForwardedHeadersOptions {
                 ForwardedHeaders = ForwardedHeaders.All
             });
         }
     }
+}
+
+public static class ApplicationBuilderExtensions
+{
+    public static IApplicationBuilder UseRootRewrite(this IApplicationBuilder builder)
+{
+    builder.Use((context, next) =>
+    {
+        if (context.Request.Path == "/" && !HttpMethods.IsGet(context.Request.Method))
+        {
+            context.Request.Method = "GET";
+        }
+
+        return next();
+    });
+
+    return builder;
+}
 }

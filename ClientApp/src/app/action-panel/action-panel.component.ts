@@ -13,8 +13,8 @@ export class ActionPanelComponent implements OnInit {
   ngOnInit() {
   }
 
-  fileUploadListener() {
-      this.fileUploaded = true;
+  fileUploadListener(validFile: boolean) {
+      this.fileUploaded = validFile;
   }
 
   elapsedTimeListener(seconds: number) {
