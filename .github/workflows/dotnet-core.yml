@@ -32,7 +32,10 @@ jobs:
         username: ${{ secrets.VULTR_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
-        script: systemctl restart kestrel-ng-tss-tool.service  
+        script: |
+          systemctl restart kestrel-ng-tss-tool.service  
+          chmod 777 /var/www/tss.darinalleman.xyz/wwwroot/Uploads/
+          chmod 777 /var/www/tss.darinalleman.xyz/wwwroot/Downloads/
     - name:  Print stuff
       run: echo "All done!"
 
